@@ -49,9 +49,9 @@ class showInventory extends Phaser.Scene {
         this.beansNum = this.add.text(675, 155, window.lettuce, { font: '15px Futura PT Medium', fill: '#ffffff' }).setScrollFactor(0);
 
         // Setup heart but visible to false
-        this.heartimg1 = this.add.image(100, 43, 'heart').setScrollFactor(0).setVisible(false).setScale(0.3);
-        this.heartimg2 = this.add.image(170, 43, 'heart').setScrollFactor(0).setVisible(false).setScale(0.3);
-        this.heartimg3 = this.add.image(240, 43, 'heart').setScrollFactor(0).setVisible(false).setScale(0.3);
+        this.heartimg1 = this.add.image(100, 43, 'heart').setScrollFactor(0).setVisible(true).setScale(0.3);
+        this.heartimg2 = this.add.image(170, 43, 'heart').setScrollFactor(0).setVisible(true).setScale(0.3);
+        this.heartimg3 = this.add.image(240, 43, 'heart').setScrollFactor(0).setVisible(true).setScale(0.3);
 
         //this.key = this.add.image (370, 50, 'key').setScrollFactor(0).setVisible(true);
 
