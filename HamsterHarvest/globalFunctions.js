@@ -30,7 +30,7 @@ function updateInventory() {
 // Uses a JS function to prevent repeated codes
 // 
 ///////////////////////////////////////////////////////
-function globalHitFire(player, item) {
+function globalHitCat(player, item) {
     console.log("*** player overlap fire");
 
     // Shake screen

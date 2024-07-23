@@ -157,6 +157,17 @@ class preload extends Phaser.Scene {
       frameRate: 1,
       repeat: -1
     })
+
+    //var space = this.input.keyboard.addKey("SPACE");
+  
+      // On spacebar event, call the world scene
+  
+      //space.on(
+        //"down", function () {
+        //  this.scene.start("home", {});
+       // },
+       // this
+     // );
   } /////////////////// end of create //////////////////////////////
 
   update() {

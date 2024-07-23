@@ -156,6 +156,8 @@ class level1 extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.cheese, globalCollectCheese, null, this);
     this.physics.add.overlap(this.player, this.lettuce, globalCollectLettuce, null, this);
 
+    this.physics.add.overlap(this.player, this.cat, globalHitCat, null, this);
+
     // Call to update inventory items
     this.time.addEvent({
       delay: 100,
@@ -206,26 +208,6 @@ class level1 extends Phaser.Scene {
       this.player.body.setVelocity(0, 0);
     }
 
-    if (window.heart === 3){
-      this.heartimg1.setVisible(true);
-      this.heartimg2.setVisible(true);
-      this.heartimg3.setVisible(true);
-    }
-    else if (window.heart === 2){
-      this.heartimg1.setVisible(true);
-      this.heartimg2.setVisible(true);
-      this.heartimg3.setVisible(false);
-    }
-    else if (window.heart === 1){
-      this.heartimg1.setVisible(true);
-      this.heartimg2.setVisible(false);
-      this.heartimg3.setVisible(false);
-    }
-    else if (window.heart === 0){
-      this.heartimg1.setVisible(false);
-      this.heartimg2.setVisible(false);
-      this.heartimg3.setVisible(false);
-    }
   }
   /////////////////// end of update //////////////////////////////
 
