@@ -25,7 +25,8 @@ class level1 extends Phaser.Scene {
     this.load.image("furnitureIMG", "assets/Basic_Furniture.png");
     this.load.image("chickenHouseIMG", "assets/Free_Chicken_House.png");
     this.load.image("pathIMG", "assets/Paths.png");
-
+    
+    this.load.audio('bgMusic', 'assets/game-music-loop-7-145285.mp3ssets/.mp3');
   }
 
   create() {
@@ -51,6 +52,7 @@ class level1 extends Phaser.Scene {
     let pathTiles = map.addTilesetImage("Paths", "pathIMG");
 
     //Load in layers by layers
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     this.waterLayer = map.createLayer(
       "water",
@@ -61,7 +63,7 @@ class level1 extends Phaser.Scene {
 
     this.grassLayer = map.createLayer(
       "grass",
-      [grassTiles, houseTiles],
+      [grassTiles, houseTiles, waterTiles],
       0,
       0
     );
@@ -143,6 +145,10 @@ class level1 extends Phaser.Scene {
     this.deco1Layer.setCollisionByExclusion(-1, true);
     this.physics.add.collider(this.player, this.deco1Layer);
     this.physics.add.collider(this.cat, this.decoLayer);
+    this.physics.add.collider(this.player, this.waterLayer);
+    this.waterLayer.setCollisionByExclusion(-1, true);
+    this.physics.add.collider(this.cat, this.waterLayer);
+
 
     this.physics.overlap(
       this.player,
@@ -176,13 +182,15 @@ class level1 extends Phaser.Scene {
   } /////////////////// end of create //////////////////////////////
 
   update() {
+
+    if (window.heart === 0) {
+      this.scene.start("gameOver", {});
+  }
     if (
       this.player.x > 463 &&
       this.player.x < 495 &&
       this.player.y > 875
     ) {
-      console.log("Go to level2 function");
-      this.level2();
     }
 
 
@@ -208,8 +216,17 @@ class level1 extends Phaser.Scene {
       this.player.body.setVelocity(0, 0);
     }
 
+    if (this.player.x > 463 && this.player.x < 495 && this.player.y > 875) {
+      if (window.cheese >= 1 && window.lettuce >= 1) {
+        this.level2()
+      }
+    }
+    if (this.player.x > 204 && this.player.x < 268 && this.player.y < 279) {
+      if (window.cheese >= 1 && window.lettuce >= 1 && window.lettuce>= 1 && window.beans>=1 && window.brocolli>= 1 && window.apple>= 1 && window.carrot>= 1 && window.corn>= 1) {
+        this.scene.start("win")
+      }
   }
-  /////////////////// end of update //////////////////////////////
+ }/////////////////// end of update //////////////////////////////
 
   catCollision(player, enemy) {
     this.camera.main.shake(100);

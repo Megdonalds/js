@@ -13,53 +13,29 @@ class main extends Phaser.Scene {
         // Preload all the assets here
 
         // Preload any images here
-
+        this.load.image("mainIMG", "assets/main.png");
         // Preload any sound and music here
         // this.load.audio('ping', 'assets/ping.mp3');
-        // this.load.audio('bgMusic', 'assets/bgMusic.mp3');
+       
+         this.load.audio('bgMusic', 'assets/game-music-loop-7-145285.mp3');
     }
 
     create() {
-
-        console.log('*** main scene');
-
-        // Add any sound and music here
-        // ( 0 = mute to 1 is loudest )
-        //this.music = this.sound.add('bgMusic').setVolume(0.3) // 10% volume
-
-        //this.music.play()
-        //window.music = this.music
-
-
-        // Add image and detect spacebar keypress
-        //this.add.image(0, 0, 'main').setOrigin(0, 0);
-
-        // Check for spacebar or any key here
+        window.mainmusic - this.sound.add("bgMusic").setVolume(0.1).setLoop(true).play()
+        
+        this.scene.bringToTop("main");
+        const image = this.add.image(400, 400, 'mainIMG');
+        
+        console.log("menu page - main");
+    
+    
         var spaceDown = this.input.keyboard.addKey('SPACE');
-
-        // On spacebar event, call the world scene        
-        spaceDown.on('down', function () {
-            console.log('Jump to world scene');
-
-            this.scene.start('level1',
-                // Optional parameters
-                {
-
-                }
-            );
-        }, this);
-
-
-        // Add any text in the main page
-        this.add.text(90, 600, 'Press spacebar to continue', {
-            font: '30px Courier',
-            fill: '#FFFFFF'
-        });
-
-
-        // Create all the game animations here
-
+    
+            spaceDown.on('down', function(){
+                this.scene.start("instructions");
+                }, this );
+    
+    
+        }
+     
     }
-
-
-}

@@ -21,6 +21,8 @@ class level3 extends Phaser.Scene {
     this.load.image("biomeIMG", "assets/Basic_Grass_Biom_things.png");
     this.load.image("bridgeIMG", "assets/Wood_Bridge.png");
 
+    this.load.audio('bgMusic', 'assets/game-music-loop-7-145285.mp3ssets/.mp3');
+
     // preload generated character spritesheets
     this.load.spritesheet('hammy', 'assets/Basic Charakter Spritesheet.png',
       { frameWidth: 96, frameHeight: 96 });
@@ -48,6 +50,8 @@ class level3 extends Phaser.Scene {
     let grassTiles = map.addTilesetImage("Grass", "grassIMG");
     let biomeTiles = map.addTilesetImage("Basic_Grass_Biom_things", "biomeIMG");
     let bridgeTiles = map.addTilesetImage("Wood_Bridge", "bridgeIMG");
+
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     //Load in layers by layers
     this.waterLayer = map.createLayer(
@@ -94,7 +98,7 @@ class level3 extends Phaser.Scene {
       fill: "#00FFFF",
     });
 
-    
+
     // hammy is the alias in preload 
     this.player = this.physics.add.sprite(this.playerPos.x, this.playerPos.y, 'hammy');
     this.cat = this.physics.add.sprite(700, 500, 'cat');
@@ -142,25 +146,28 @@ class level3 extends Phaser.Scene {
     this.physics.add.collider(this.player, this.forest2Layer);
     this.physics.add.collider(this.cat, this.forestLayer);
 
+
     //UI
-    
+
     /////////////////// collection //////////////////////////////
 
     this.physics.add.overlap(this.player, this.corn, globalCollectCorn, null, this);
     this.physics.add.overlap(this.player, this.brocolli, globalCollectBrocolli, null, this);
     this.physics.add.overlap(this.player, this.beans, globalCollectBeans, null, this);
 
-     // Call to update inventory items
-     this.time.addEvent({
+    this.physics.add.overlap(this.player, this.cat, globalHitCat, null, this);
+
+    // Call to update inventory items
+    this.time.addEvent({
       delay: 100,
       callback: updateInventory,
       callbackScope: this,
       loop: false,
     });
-    
+
     // start another scene in parallel
     this.scene.launch("showInventory");
-    
+
     // Call globalFunction globalHitFire on overlap
     //this.physics.add.overlap(this.player, [this.fire1, this.fire2], globalHitFire, null, this);
     //this.physics.add.overlap(this.player, [this.key1, this.key2], globalCollectKey, null, this);
@@ -168,6 +175,10 @@ class level3 extends Phaser.Scene {
   } /////////////////// end of create //////////////////////////////
 
   update() {
+
+    if (window.heart === 0) {
+      this.scene.start("gameOver", {});
+  }
     if (
       this.player.x > 470 &&
       this.player.x < 502 &&
@@ -197,7 +208,18 @@ class level3 extends Phaser.Scene {
       this.player.anims.stop();
       this.player.body.setVelocity(0, 0);
     }
+    if (this.player.x > 463 && this.player.x < 495 && this.player.y > 875) {
+      if (window.cheese >= 1 && window.lettuce >= 1) {
+        this.level2()
+      }
+    }
+
   } /////////////////// end of update //////////////////////////////
+  catCollision(player, enemy) {
+    this.camera.main.shake(100);
+    window.heart--
+  }
+
   collectCorn(player, item) {
     console.log("Player hit enemy");
 

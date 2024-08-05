@@ -44,11 +44,6 @@ function globalHitCat(player, item) {
     // Call globalFunctions.js updateInventory
     updateInventory.call(this)
 
-    if (window.heart == 0) {
-        console.log("*** player gameOver");
-        this.scene.start("gameover");
-        //this.loselifeSnd.play();
-    }
 }
 
 ////////////////////////////////////////////////////////

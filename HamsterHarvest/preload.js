@@ -34,10 +34,8 @@ class preload extends Phaser.Scene {
 
     spaceDown.on('down', function () {
       console.log("spacebar pressed");
-      let playerPos = {}
-      playerPos.x = 289
-      playerPos.y = 187
-      this.scene.start("level1", { playerPos: playerPos })
+      
+      this.scene.start("main")
     },
       this
     );

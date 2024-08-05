@@ -26,6 +26,8 @@ class level2 extends Phaser.Scene {
     this.load.image("plantsIMG", "assets/Basic_Plants.png");
     this.load.image("dirtIMG", "assets/Tilled_Dirt.png");
 
+    this.load.audio('bgMusic', 'assets/game-music-loop-7-145285.mp3ssets/.mp3');
+
     // preload generated character spritesheets
     this.load.spritesheet('hammy', 'assets/Basic Charakter Spritesheet.png',
       { frameWidth: 96, frameHeight: 96 });
@@ -58,7 +60,7 @@ class level2 extends Phaser.Scene {
     let plantsTiles = map.addTilesetImage("Basic_Plants", "plantsIMG");
     let dirtTiles = map.addTilesetImage("Tilled_Dirt", "dirtIMG");
 
-
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     //Load in layers by layers
     this.waterLayer = map.createLayer(
@@ -105,7 +107,7 @@ class level2 extends Phaser.Scene {
       fill: "#00FFFF",
     });
 
-   
+
 
     // hammy is the alias in preload 
     this.player = this.physics.add.sprite(this.playerPos.x, this.playerPos.y, 'hammy');
@@ -147,32 +149,45 @@ class level2 extends Phaser.Scene {
     this.decowalls2Layer.setCollisionByExclusion(-1, true);
     this.physics.add.collider(this.player, this.decowalls2Layer);
     this.physics.add.collider(this.cat, this.decowallsLayer);
-     //UI
-     
+
+
+    //UI
+
     /////////////////// collection //////////////////////////////
 
     this.physics.add.overlap(this.player, this.apple, globalCollectApple, null, this);
     this.physics.add.overlap(this.player, this.carrot, globalCollectCarrot, null, this);
 
-     // Call to update inventory items
-     this.time.addEvent({
+    this.physics.add.overlap(this.player, this.cat, globalHitCat, null, this);
+
+
+    // Call to update inventory items
+    this.time.addEvent({
       delay: 100,
       callback: updateInventory,
       callbackScope: this,
       loop: false,
     });
-    
+
     // start another scene in parallel
     this.scene.launch("showInventory");
-    
+
     // Call globalFunction globalHitFire on overlap
     //this.physics.add.overlap(this.player, [this.fire1, this.fire2], globalHitFire, null, this);
     //this.physics.add.overlap(this.player, [this.key1, this.key2], globalCollectKey, null, this);
 
 
   } /////////////////// end of create //////////////////////////////
+  catCollision(player, enemy) {
+    this.camera.main.shake(100);
+    window.heart--
+  }
 
   update() {
+
+    if (window.heart === 0) {
+      this.scene.start("gameOver", {});
+  }
     if (
       this.player.x > 463 &&
       this.player.x < 495 &&
@@ -211,22 +226,33 @@ class level2 extends Phaser.Scene {
       this.player.anims.stop();
       this.player.body.setVelocity(0, 0);
     }
-  } /////////////////// end of update //////////////////////////////
-  
+
+    if (this.player.x > 463 && this.player.x < 495 && this.player.y > 875) {
+      if (window.carrot >= 1 && window.apple >= 1) {
+        this.level3()
+      }
+    }
+  }
+  /////////////////// end of update //////////////////////////////
+  catCollision(player, enemy) {
+    this.camera.main.shake(100);
+    window.heart--
+  }
+
   // Function to jump to room1
   level3(player, tile) {
     console.log("level3 function");
     let playerPos = {}
     playerPos.x = 500
     playerPos.y = 100
-    this.scene.start("level3",  { playerPos: playerPos })
+    this.scene.start("level3", { playerPos: playerPos })
   }
   level1(player, tile) {
     console.log("level1 function");
     let playerPos = {}
     playerPos.x = 486
     playerPos.y = 834
-    this.scene.start("level1",  { playerPos: playerPos })
+    this.scene.start("level1", { playerPos: playerPos })
   }
   //function hitcat
   hitcat(player, cat) {

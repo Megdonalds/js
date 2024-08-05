@@ -6,7 +6,7 @@
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            debug: false
         }
     },
     scale: {
@@ -14,8 +14,8 @@
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     backgroundColor: '#000000',
-    pixelArt: true,
-    scene: [preload, level1, level2, level3, gameOver, showInventory]
+   // pixelArt: true,
+    scene: [preload, main, instructions, level1, level2, level3, win, gameOver, showInventory]
 };
 
 var game = new Phaser.Game(config);
