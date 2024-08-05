@@ -15,7 +15,7 @@
     },
     backgroundColor: '#000000',
    // pixelArt: true,
-    scene: [preload, main, instructions, level1, level2, level3, win, gameOver, showInventory]
+    scene: [preload, game, main, instructions, level1, level2, level3, win, gameOver, showInventory]
 };
 
 var game = new Phaser.Game(config);
