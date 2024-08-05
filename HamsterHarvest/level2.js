@@ -101,13 +101,6 @@ class level2 extends Phaser.Scene {
     this.physics.world.bounds.width = this.waterLayer.width;
     this.physics.world.bounds.height = this.waterLayer.height;
 
-    // Add any text to the game
-    this.add.text(10, 10, "hello", {
-      font: "30px Courier",
-      fill: "#00FFFF",
-    });
-
-
 
     // hammy is the alias in preload 
     this.player = this.physics.add.sprite(this.playerPos.x, this.playerPos.y, 'hammy');
