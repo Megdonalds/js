@@ -30,10 +30,10 @@ class preload extends Phaser.Scene {
   }
 
   create() {
-    let spaceDown = this.input.keyboard.addKey('SPACE');
+    //let spaceDown = this.input.keyboard.addKey('SPACE');
 
-    spaceDown.on('down', function () {
-      console.log("spacebar pressed");
+    //spaceDown.on('down', function () {
+    //console.log("spacebar pressed");
       
       this.scene.start("main")
     },
