@@ -36,9 +36,7 @@ class preload extends Phaser.Scene {
     //console.log("spacebar pressed");
       
       this.scene.start("main")
-    },
-      this
-    );
+    
 
     this.anims.create({
       key: 'hamAnimup',
